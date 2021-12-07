@@ -1,3 +1,4 @@
+
 import express, { response } from 'express';
 import LikeSchema from "../likes/modal.js";
 
@@ -51,3 +52,4 @@ router.delete('/:id', async (req, res) => {
 
 
 export default router;
+
