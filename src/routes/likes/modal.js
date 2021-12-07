@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema, modal } = mongoose;
+const { Schema, model } = mongoose;
 
 
 const LikeSchema = new Schema(
@@ -53,4 +53,4 @@ const LikeSchema = new Schema(
 
 
 
-export default modal("Like", LikeSchema);
+export default model("Like", LikeSchema);
