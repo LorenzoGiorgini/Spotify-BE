@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import LikesRouter from "./routes/likes/index.js"
 import listEndpoints from "express-list-endpoints";
 import TopFiveSongsRouter from "../src/routes/topFive/index.js"
-
+import playlistRouter from "./routes/playlists/index.js" 
 
 dotenv.config()
 
@@ -27,6 +27,8 @@ server.use("/likes", LikesRouter)
 
 
 server.use("/topFive", TopFiveSongsRouter)
+
+server.use("/playlist", playlistRouter)
 
 
 mongoose.connect(process.env.MONGO_URL)
