@@ -4,7 +4,19 @@ import Playlist from './schema.js'
 
 const router = express.Router();
 
+router.post('/song/:id', async (req, res) => {
 
+    console.log('get')
+    Playlist.findByIdAndUpdate(req.params.id, 
+        {$push: {songs: req.body}}, (err, playlist) => {
+        if (err) {
+        console.log(err);
+        res.status(500).send('Error');
+        } else {
+        res.json(playlist);
+        }
+    });
+})
 
 
 router.get('/', async (req, res) => {
@@ -37,11 +49,10 @@ router.post('/', async (req, res) => {
     res.status(201).send(playlist.name);
 })
 
-router.post('/addSong/:id', async (req, res) => {
 
 
-    Playlist.findByIdAndUpdate(req.params.id, 
-        {$push: {songs: req.body}}, (err, playlist) => {
+router.delete('/playlist/:id', async (req, res) => {
+    Playlist.findByIdAndRemove(req.params.id, (err, playlist) => {
         if (err) {
         console.log(err);
         res.status(500).send('Error');
@@ -49,6 +60,19 @@ router.post('/addSong/:id', async (req, res) => {
         res.json(playlist);
         }
     });
+})
+
+router.delete('/song/:playlistId/:songId', async (req, res) => {
+    Playlist.findByIdAndUpdate(req.params.playlistId, 
+        {$pull: {songs: {_id: req.params.songId}}}, (err, playlist) => {
+        if (err) {
+        console.log(err);
+        res.status(500).send('Error');
+        } else {
+        res.json(playlist);
+        }
+    });
+
 })
 
 
