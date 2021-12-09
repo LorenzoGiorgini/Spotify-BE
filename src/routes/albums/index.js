@@ -22,9 +22,8 @@ router
     try {
       const alreadyThere = await AlbumSchema.find({ id: req.body.id });
       if (alreadyThere.length > 0) {
-        res
-          .status(400)
-          .send({ success: false, message: "Album already exists" });
+        const toggleAlbum = await AlbumSchema.findOneAndDelete({ id: req.body.id})
+        res.status(204).send({ success: true, data: "Toggled" });
       } else {
         const album = new AlbumSchema(req.body);
         if (album) {
@@ -39,17 +38,6 @@ router
     }
   });
 
-router.route("/:albumId").delete(async(req, res) => {
-  try {
-    const album = await AlbumSchema.findOneAndDelete({ id: req.params.albumId });
-    if (album) {
-      res.status(200).send({ success: true, data: album });
-    } else {
-      res.status(404).send({ success: false, message: "No albums found" });
-    }
-  } catch (error) {
-    res.status(500).send({ success: false, message: error.message });
-  }
-});
+
 
 export default router;
