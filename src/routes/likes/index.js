@@ -41,9 +41,12 @@ router.post('/', async(req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try{
-        const {id} = req.params
-        const deletedLike = LikeSchema.findByIdAndDelete(id)
-        res.send(deletedLike)
+        const {id} = req.params        
+        console.log(id)
+
+        const deletedLike = await LikeSchema.findOneAndDelete({id:id})
+        // console.log(deletedLike)
+        res.status(201).send("deleted")
     }catch(error){
     
         res.status(500).send(error)
