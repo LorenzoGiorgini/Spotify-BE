@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
 
 
 
-router.delete('/playlist/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     Playlist.findByIdAndRemove(req.params.id, (err, playlist) => {
         if (err) {
         console.log(err);
